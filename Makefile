@@ -21,7 +21,7 @@ all: json json_parser.pdf
 %.o: %.cc
 	$(CXX) $(CXXFLAGS) -c -o$@ $<
 
-$(PROGRAM): json.o json_parser.o json_scanner.o
+json: json.o json_parser.o json_scanner.o
 	$(CXX) -o $@ $^
 
 json.o: json_parser.hh
