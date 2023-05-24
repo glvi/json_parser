@@ -1,6 +1,10 @@
 #pragma once
 #include <iosfwd>
+#include <optional>
 #include <string>
+#include <unordered_map>
+#include <variant>
+#include <vector>
 
 /*
   JSON unit type

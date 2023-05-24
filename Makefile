@@ -1,7 +1,7 @@
 # -*- mode: makefile-gmake; coding: utf-8; -*-
 
 BISON:=/usr/local/opt/bison/bin/bison
-CXX:=/usr/local/opt/llvm/bin/clang++
+CXX:=/usr/local/opt/gcc/bin/g++-13
 FLEX:=/usr/local/opt/flex/bin/flex
 DOT:=/usr/local/bin/dot
 
