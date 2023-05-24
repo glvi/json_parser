@@ -15,8 +15,6 @@
   #define YY_DECL auto yylex(Driver& driver) -> yy::parser::symbol_type
 }
 
-//%locations
-
 %define parse.trace
 %define parse.error detailed
 %define parse.lac full
