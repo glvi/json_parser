@@ -6,12 +6,12 @@ I wanted to show-case how to write a parser using GNU bison.
 And writing a JSON parser seemed like a good idea at the time.
 
 # Dependencies
-Mac
-Homebrew
-LLVM Clang
-GNU Bison
-GNU Flex
-GNU Make
+Mac,
+Homebrew,
+LLVM Clang,
+GNU Bison,
+GNU Flex,
+GNU Make.
 
 # Contents
 
