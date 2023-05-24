@@ -1,32 +1,13 @@
-# Prerequisites
-*.d
-
 # Compiled Object files
-*.slo
-*.lo
 *.o
-*.obj
 
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+# Generated parser files
+json_parser.xml
+json_parser.cc
+json_parser.gv
+json_parser.hh
+json_parser.html
+json_parser.pdf
 
 # Executables
-*.exe
-*.out
-*.app
+json
