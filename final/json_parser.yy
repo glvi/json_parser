@@ -30,13 +30,17 @@
   NULL   "null"
   TRUE   "true"
   FALSE  "false"
-  LCB    "{"                    // U+007B left curly bracket
-  RCB    "}"                    // U+007D right curly bracket
-  LSB    "["                    // U+005B left square bracket
-  RSB    "]"                    // U+005D right square bracket
   COMMA  ","                    // U+002C comma
   COLON  ":"                    // U+003A colon
+  LSB    "["                    // U+005B left square bracket
+  RSB    "]"                    // U+005D right square bracket
+  LCB    "{"                    // U+007B left curly bracket
+  RCB    "}"                    // U+007D right curly bracket
 ;
+
+%code requires {
+  using std::string;
+}
 
 %code {
   template<typename T>
@@ -46,7 +50,7 @@
      std::is_copy_assignable_v<T>);
 
   static_assert(is_parser_type_v<double>);
-  static_assert(is_parser_type_v<std::string>);
+  static_assert(is_parser_type_v<string>);
   static_assert(is_parser_type_v<JSONNull>);
   static_assert(is_parser_type_v<JSONBoolean>);
   static_assert(is_parser_type_v<JSONNumber>);
@@ -56,8 +60,8 @@
   static_assert(is_parser_type_v<JSONValue>);
 }
 
-%token <double>       NUMBER "number"
-%token <std::string>  STRING "string"
+%token <double>      NUMBER "number"
+%token <string>      STRING "string"
 
 %nterm <JSONString>  string
 %nterm <JSONArray>   array
@@ -117,7 +121,7 @@ string:
 %%
 
 namespace yy {
-  auto parser::error(std::string const& text) -> void
+  auto parser::error(string const& text) -> void
   {
     std::clog << text << "\n";
   }
