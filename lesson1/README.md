@@ -1,7 +1,3 @@
-html header:	<link rel="stylesheet" href="http://yandex.st/highlightjs/7.3/styles/default.min.css">
-	<script src="http://yandex.st/highlightjs/7.3/highlight.min.js"></script>
-	<script>hljs.initHighlightingOnLoad();</script>
-
 # Lesson 1 "What does the grammar look like?"
 
 The JavaScript Object Notation (JSON) grammar has a very succinct structure:
@@ -26,7 +22,15 @@ where
 The initial grammar draft looks thusly:
 
 ```bison
-{{json_parser_draft1.yy}}
+value: "null" | "true" | "false" | number | string | object | array;
+
+object: "{" "}" | "{" mappings "}";
+
+mappings: string ":" value | mappings "," string ":" value;
+
+array: "[" "]" | "[" values "]";
+
+values: value | values "," value;
 ```
 
 Generating the parser produces errors, because the symbols `number`
@@ -42,7 +46,13 @@ JSON numbers can be obtained from the scanner with the following
 regular expressions.
 
 ```flex
-{{json_scanner_number_draft1.ll}}
+natural    0|[1-9][0-9]*
+integer    -?{natural}
+fraction   \.{natural}
+exponent   [Ee][+-]?{natural}
+number     {integer}{fraction}?{exponent}?
+%%
+{number}   return /* NUMBER token */
 ```
 
 JSON strings are a bit more involved, but can also be obtained from
@@ -52,13 +62,30 @@ The following is a draft set of lexer patterns and actions for
 matching a string enclosed in double quotes.
 
 ```flex
-{{json_scanner_string_draft1.ll}}
+%x STRING
+%%
+\"         BEGIN(STRING);
+<STRING>\" BEGIN(INITIAL); return /* STRING token */;
+<STRING>.  yymore();
 ```
 
 The updated grammar draft then looks thusly:
 
 ```bison
-{{json_parser.yy}}
+%token <double> NUMBER;
+%token <string> STRING;
+
+%%
+
+value: "null" | "true" | "false" | NUMBER | STRING | object | array;
+
+object: "{" "}" | "{" mappings "}";
+
+mappings: STRING ":" value | mappings "," STRING ":" value;
+
+array: "[" "]" | "[" values "]";
+
+values: value | values "," value;
 ```
 
 **References**:
