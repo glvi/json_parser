@@ -22,6 +22,8 @@ where
 The initial grammar draft looks thusly:
 
 ```bison
+%%
+
 value: "null" | "true" | "false" | number | string | object | array;
 
 object: "{" "}" | "{" mappings "}";
