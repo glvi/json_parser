@@ -1,0 +1,63 @@
+# -*- mode: makefile-gmake; coding: utf-8; indent-tabs-mode: t; -*-
+
+# Set make variable ANTLR_GRAMMAR to process the associated grammar
+# file.
+#
+# ANTLR_GRAMMAR=foo
+ifndef ANTLR_GRAMMAR
+$(error "Must define ANTLR_GRAMMAR")
+endif
+
+# Set make variable ANTLR_OUTDIR to redirect ANTLR output too the
+# specified directory.
+#
+# ANTLR_OUTDIR=some/where
+ifndef ANTLR_OUTDIR
+$(error "Must define ANTLR_OUTDIR")
+endif
+
+# Set make variable ANTLR_NAMESPACE to have the generated code in the
+# specified namespace.
+#
+# If not set, it defaults to the following.
+# 'antlr::$(ANTLR_OUTDIR)::$(ANTLR_GRAMMAR)'
+#
+ANTLR_NAMESPACE=antlr::$(ANTLR_OUTDIR)::$(ANTLR_GRAMMAR)
+
+# Define make variable `ANTLR_NO_LISTENER` to suppress creating files
+# for the parser listener.
+#
+# ANTLR_NO_LISTENER=1
+
+# Define make variable `ANTLR_VISITOR` to create files for the parser
+# visitor.
+#
+# ANTLR_VISITOR=1
+
+ANTLR_FLAGS=-Dlanguage=Cpp
+ifdef ANTLR_NO_LISTENER
+ANTLR_FLAGS+= -no-listener
+endif
+ifdef ANTLR_VISITOR
+ANTLR_FLAGS+= -visitor
+endif
+ifneq ($(ANTLR_OUTDIR),)
+ANTLR_FLAGS+= -o $(ANTLR_OUTDIR)
+endif
+ifneq ($(ANTLR_NAMESPACE),)
+ANTLR_FLAGS+= -package $(ANTLR_NAMESPACE)
+endif
+
+ANTLR_GENERATED:=Lexer Parser
+ifndef ANTLR_NO_LISTENER
+ANTLR_GENERATED+= Listener BaseListener
+endif
+ifdef ANTLR_VISITOR
+ANTLR_GENERATED+= Visitor BaseVisitor
+endif
+
+ANTLR_GENERATED_SRCS:=$(patsubst %,$(ANTLR_OUTDIR)/$(ANTLR_GRAMMAR)%.cpp,$(ANTLR_GENERATED))
+ANTLR_GENERATED_HDRS:=$(patsubst %,$(ANTLR_OUTDIR)/$(ANTLR_GRAMMAR)%.h,$(ANTLR_GENERATED))
+
+ANTLR_MATCHRULE:=$(patsubst %,$(ANTLR_OUTDIR)/\%%.cpp,$(ANTLR_GENERATED))
+ANTLR_MATCHRULE+= $(patsubst %,$(ANTLR_OUTDIR)/\%%.h,$(ANTLR_GENERATED))

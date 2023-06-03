@@ -9,5 +9,7 @@ json_parser.hh
 json_parser.html
 json_parser.pdf
 
-# Executables
-json
+# Generated parser files
+antlr/build/*
+antlr/gen/*
+bison/final/json
