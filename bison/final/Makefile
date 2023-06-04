@@ -26,7 +26,7 @@ all: json json_parser.pdf
 json: json.o json_parser.o json_scanner.o
 	$(CXX) $(LDFLAGS) -o $@ $^
 
-json.o: json_parser.hh
+json.o: json_parser.hh json.hh
 json_parser.o: json_parser.hh
 json_scanner.o: json_parser.hh
 
