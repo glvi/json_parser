@@ -98,6 +98,7 @@ class JSONObject
 public:
   explicit JSONObject() = default;
   explicit JSONObject(JSONString&&, JSONValue&&);
+  explicit JSONObject(JSONObject&&, JSONString&&, JSONValue&&);
   auto emplace(JSONString&&, JSONValue&&) -> void;
   auto at(JSONString const&) const -> JSONValue const&;
 };
@@ -118,6 +119,7 @@ public:
   using size_type = decltype(elements)::size_type;
   explicit JSONArray() = default;
   explicit JSONArray(JSONValue&&);
+  explicit JSONArray(JSONArray&&, JSONValue&&);
   auto push_back(JSONValue&&) -> void;
   auto empty() const -> bool;
   auto size() const -> size_type;

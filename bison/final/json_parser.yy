@@ -61,10 +61,9 @@
   static_assert(is_parser_type_v<JSONValue>);
 }
 
-%token <double>      NUMBER "number"
-%token <string>      STRING "string"
+%token <JSONNumber>  NUMBER "number"
+%token <JSONString>  STRING "string"
 
-%nterm <JSONString>  string
 %nterm <JSONArray>   array
 %nterm <JSONArray>   values;
 %nterm <JSONObject>  mappings
@@ -90,8 +89,8 @@ simple:
   "null"   { $$ = JSON_NULL; }
 | "false"  { $$ = JSON_FALSE; }
 | "true"   { $$ = JSON_TRUE; }
-| "number" { $$ = JSONNumber {$1}; }
-| string   { $$ = $1; }
+| "number" { $$ = $1; }
+| "string" { $$ = $1; }
 ;
 
 object:
@@ -105,18 +104,13 @@ array:
 ;
 
 mappings:
-  string ":" value {$$ = JSONObject {$1, $3};}
-| mappings "," string ":" value {
-    $1.emplace($3, $5); $$ = $1;}
+  "string" ":" value              { $$ = JSONObject {$1, $3};}
+| mappings "," "string" ":" value { $$ = JSONObject {$1, $3, $5}; }
 ;
 
 values:
-  value { $$ = JSONArray {$1}; };
-| values "," value { $1.push_back($3); $$ = $1; }
-;
-
-string:
-  "string" { $$ = JSONString {$1}; }
+  value            { $$ = JSONArray {$1};     };
+| values "," value { $$ = JSONArray {$1, $3}; }
 ;
 
 %%

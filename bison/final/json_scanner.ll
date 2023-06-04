@@ -97,12 +97,12 @@ auto make_NUMBER(char const * str, int) -> yy::parser::symbol_type
     msg.append("\" as number");
     throw yy::parser::syntax_error {msg};
   }
-  return yy::parser::make_NUMBER(val);
+  return yy::parser::make_NUMBER(JSONNumber {val});
 }
 
 auto make_STRING(std::string&& str) -> yy::parser::symbol_type
 {
-  return yy::parser::make_STRING(std::move(str));
+  return yy::parser::make_STRING(JSONString{std::move(str)});
 }
 
 std::string make_UTF8(uint16_t codepoint)

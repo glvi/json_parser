@@ -101,6 +101,12 @@ JSONObject::JSONObject(JSONString&& k, JSONValue&& j)
   mappings.emplace(std::move(k), std::move(j));
 }
 
+JSONObject::JSONObject(JSONObject&& o, JSONString&& k, JSONValue&& j)
+  : mappings {std:move(o.mappings)}
+{
+  mappings.emplace(std::move(k), std::move(j));
+}
+
 auto JSONObject::emplace(JSONString&& k, JSONValue&& j) -> void
 {
   mappings.emplace(std::move(k), std::move(j));
@@ -127,6 +133,12 @@ auto operator<<(ostream& out, JSONObject const& o) -> ostream&
 */
 
 JSONArray::JSONArray(JSONValue&& j)
+{
+  elements.push_back(std::move(j));
+}
+
+JSONArray::JSONArray(JSONArray&& a, JSONValue&& j)
+  : elements {std::move(a.elements)}
 {
   elements.push_back(std::move(j));
 }
