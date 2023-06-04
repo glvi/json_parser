@@ -5,6 +5,7 @@
 %define api.token.raw
 %define api.token.constructor
 %define api.value.type variant
+%define api.value.automove
 %define parse.assert
 
 %code requires {
@@ -76,13 +77,13 @@
 %%
 
 start:
-  value { driver.result = std::move($1); }
+  value { driver.result = $1; }
 ;
 
 value:
-  simple { $$ = std::move($1); }
-| object { $$ = std::move($1); }
-| array  { $$ = std::move($1); }
+  simple { $$ = $1; }
+| object { $$ = $1; }
+| array  { $$ = $1; }
 ;
 
 simple:
@@ -90,32 +91,32 @@ simple:
 | "false"  { $$ = JSON_FALSE; }
 | "true"   { $$ = JSON_TRUE; }
 | "number" { $$ = JSONNumber {$1}; }
-| string   { $$ = std::move($1); }
+| string   { $$ = $1; }
 ;
 
 object:
   "{" "}"          { $$ = JSONObject {}; }
-| "{" mappings "}" { $$ = std::move($2); }
+| "{" mappings "}" { $$ = $2; }
 ;
 
 array:
   "[" "]"        { $$ = JSONArray {}; }
-| "[" values "]" { $$ = std::move($2); }
+| "[" values "]" { $$ = $2; }
 ;
 
 mappings:
-  string ":" value {$$ = JSONObject {std::move($1), std::move($3)};}
+  string ":" value {$$ = JSONObject {$1, $3};}
 | mappings "," string ":" value {
-    $1.emplace(std::move($3), std::move($5)); $$ = std::move($1);}
+    $1.emplace($3, $5); $$ = $1;}
 ;
 
 values:
-  value { $$ = JSONArray {std::move($1)}; };
-| values "," value { $1.push_back(std::move($3)); $$ = std::move($1); }
+  value { $$ = JSONArray {$1}; };
+| values "," value { $1.push_back($3); $$ = $1; }
 ;
 
 string:
-  "string" { $$ = JSONString {std::move($1)}; }
+  "string" { $$ = JSONString {$1}; }
 ;
 
 %%
