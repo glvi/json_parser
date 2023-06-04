@@ -1,11 +1,13 @@
 # -*- mode: makefile-gmake; coding: utf-8; -*-
 
-BISON=/usr/local/opt/bison/bin/bison
-CXX=/usr/local/opt/gcc/bin/g++-13
-FLEX=/usr/local/opt/flex/bin/flex
-DOT=/usr/local/bin/dot
+BISON = /usr/local/opt/bison/bin/bison
+FLEX  = /usr/local/opt/flex/bin/flex
+DOT   = /usr/local/bin/dot
 
-CXXFLAGS=-std=c++20
+CXX       = /usr/local/opt/gcc/bin/g++-13
+CXXFLAGS  = -std=c++20
+CPPFLAGS += -I /usr/local/opt/gcc/include/c++/13
+LDFLAGS  += -L /usr/local/opt/gcc/lib/gcc/13
 
 all: json json_parser.pdf
 
@@ -19,10 +21,10 @@ all: json json_parser.pdf
 	$(FLEX) $(FLEXFLAGS) -o$@ $<
 
 %.o: %.cc
-	$(CXX) $(CXXFLAGS) -c -o$@ $<
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c -o$@ $<
 
 json: json.o json_parser.o json_scanner.o
-	$(CXX) -o $@ $^
+	$(CXX) $(LDFLAGS) -o $@ $^
 
 json.o: json_parser.hh
 json_parser.o: json_parser.hh
