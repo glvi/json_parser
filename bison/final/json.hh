@@ -93,7 +93,7 @@ class JSONValue;
 
 class JSONObject
 {
-  std::unordered_map<JSONString, JSONValue, JSONString::Hash> mappings;
+  std::unordered_multimap<JSONString, JSONValue, JSONString::Hash> mappings;
   friend auto operator<<(std::ostream&, JSONObject const&) -> std::ostream& ;
 public:
   explicit JSONObject() = default;
