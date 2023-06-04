@@ -91,7 +91,7 @@ auto make_NUMBER(char const * str, int) -> yy::parser::symbol_type
   std::istringstream in {str};
   double val;
   in >> val;
-  if (not val) {
+  if (not in) {
     std::string msg {"Unable to represent \""};
     msg.append(str);
     msg.append("\" as number");
