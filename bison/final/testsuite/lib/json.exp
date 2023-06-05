@@ -1,0 +1,4 @@
+proc json_run args {
+    global TOOL_EXECUTABLE
+    exec $TOOL_EXECUTABLE {*}$args
+}
