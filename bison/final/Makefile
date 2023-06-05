@@ -37,10 +37,11 @@ site.exp: json
 	@echo "creating site.exp"
 	@-rm -f $@
 	@touch $@
-	@echo 'set tool_root_dir   [pwd]'                  >> $@
-	@echo 'set tool            json'                   >> $@
-	@echo 'set srcdir          ./testsuite'            >> $@
-	@echo 'set TOOL_EXECUTABLE $$tool_root_dir/json'   >> $@
+	@echo 'set tool_root_dir   [pwd]'			>> $@
+	@echo 'set tool            json'			>> $@
+	@echo 'set srcdir          ./testsuite'			>> $@
+	@echo 'set outdir          $$srcdir'			>> $@
+	@echo 'set TOOL_EXECUTABLE $$tool_root_dir/$$tool'	>> $@
 
 clean: CLEANFILES =				\
   json *.o					\
