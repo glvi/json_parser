@@ -11,7 +11,9 @@
   auto guard_CTRL(char) -> void;
 %}
 
-natural    [0-9]+
+onenine    [1-9]
+digit      [0-9]
+natural    {digit}|{onenine}{digit}*
 integer    -?{natural}
 fraction   \.{natural}
 exponent   [Ee][+-]?{natural}
@@ -26,8 +28,9 @@ ws         [ \n\r\t]+
 %%
                     std::string builder;
 
-\"                  BEGIN(STRING); builder = {};
-<STRING>\"          BEGIN(INITIAL); return make_STRING(std::move(builder));
+\x22                BEGIN(STRING); builder = "";
+<STRING>\x22{2,}    throw yy::parser::syntax_error {"Too many \""};
+<STRING>\x22        BEGIN(INITIAL); return make_STRING(std::move(builder));
 <STRING>\\\"        builder += '\"';
 <STRING>\\\\        builder += '\\';
 <STRING>\\b         builder += '\b';
