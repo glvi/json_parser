@@ -102,7 +102,7 @@ JSONObject::JSONObject(JSONString&& k, JSONValue&& j)
 }
 
 JSONObject::JSONObject(JSONObject&& o, JSONString&& k, JSONValue&& j)
-  : mappings {std:move(o.mappings)}
+  : mappings {std::move(o.mappings)}
 {
   mappings.emplace(std::move(k), std::move(j));
 }
