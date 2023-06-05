@@ -1,3 +1,5 @@
+set JSON json
+set TOOL_EXECUTABLE $objdir/json
 
 proc json_run args {
     global TOOL_EXECUTABLE
@@ -11,7 +13,7 @@ proc json_check_accept_file {result jsonFilename jsonOutput} {
         pass "Parser accepted file: $jsonFilename"
     } else {
         fail "Parser shall accept file: $jsonFilename"
-        note "$opts $jsonOutput"
+        note $jsonOutput
     }
 }
 
@@ -20,7 +22,7 @@ proc json_check_reject_file {result jsonFilename jsonOutput} {
         pass "Parser rejected file: $jsonFilename"
     } else {
         pass "Parser shall reject file: $jsonFilename"
-        note "$jsonOutput"
+        note $jsonOutput
     }
 }
 

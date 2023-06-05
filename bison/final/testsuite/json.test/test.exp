@@ -1,7 +1,7 @@
 # -*- mode: tcl; coding: utf-8; indent-tabs-mode: nil; -*-
 
 json_must_reject_file /dev/null
-json_must_accept_file testsuite/json.test/test1.json
+json_must_accept_file $srcdir/testsuite/json.test/test1.json
 
 json_must_reject {}
 json_must_reject " \n\r\t "
