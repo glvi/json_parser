@@ -13,3 +13,8 @@ json_parser.pdf
 antlr/build/*
 antlr/gen/*
 bison/final/json
+
+# Generated parser testsuite files
+bison/final/site.exp
+bison/final/testsuite/*.log
+bison/final/testsuite/*.sum
