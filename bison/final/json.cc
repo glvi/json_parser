@@ -228,7 +228,7 @@ auto main(int argc, char *argv[]) -> int
   yy::parser p {driver};
   p.parse();
   if (driver.result) {
-    std::clog << "I found JSON: " << *driver.result << "\n";
+    std::cout << "I found JSON: " << *driver.result << "\n";
     return EXIT_SUCCESS;
   } else {
     return EXIT_FAILURE;
