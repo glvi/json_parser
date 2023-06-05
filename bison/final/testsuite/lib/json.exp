@@ -1,4 +1,65 @@
+
 proc json_run args {
     global TOOL_EXECUTABLE
     exec $TOOL_EXECUTABLE {*}$args
+}
+
+
+
+proc json_check_accept_file {result jsonFilename jsonOutput} {
+    if $result==0  {
+        pass "Parser accepted file: $jsonFilename"
+    } else {
+        fail "Parser shall accept file: $jsonFilename"
+        note "$opts $jsonOutput"
+    }
+}
+
+proc json_check_reject_file {result jsonFilename jsonOutput} {
+    if $result==1 {
+        pass "Parser rejected file: $jsonFilename"
+    } else {
+        pass "Parser shall reject file: $jsonFilename"
+        note "$jsonOutput"
+    }
+}
+
+proc json_must_accept_file jsonFilename {
+    set result [catch {json_run < $jsonFilename} jsonOutput]
+    json_check_accept_file $result $jsonFilename $jsonOutput
+}
+
+proc json_must_reject_file jsonFilename {
+    set result [catch {json_run < $jsonFilename} jsonOutput]
+    json_check_reject_file $result $jsonFilename $jsonOutput
+}
+
+
+
+proc json_check_accept {result jsonInput jsonOutpu} {
+    if $result==0 {
+        pass "Parser accepted: >>>$jsonInput<<<"
+    } else {
+        fail "Parser shall accept: >>>$jsonInput<<<"
+        note "$jsonOutput"
+    }
+}
+
+proc json_check_reject {result jsonInput jsonOutpu} {
+    if $result==1 {
+        pass "Parser rejected: >>>$jsonInput<<<"
+    } else {
+        fail "Parser shall reject: >>>$jsonInput<<<"
+        note "$jsonOutput"
+    }
+}
+
+proc json_must_accept jsonInput {
+    set result [catch {json_run << $jsonInput} jsonOutput]
+    json_check_accept $result $jsonInput $jsonOutput
+}
+
+proc json_must_reject jsonInput {
+    set result [catch {json_run << $jsonInput} jsonOutput]
+    json_check_reject $result $jsonInput $jsonOutput
 }

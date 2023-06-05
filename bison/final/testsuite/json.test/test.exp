@@ -1,107 +1,67 @@
 # -*- mode: tcl; coding: utf-8; indent-tabs-mode: nil; -*-
 
-proc must_accept_file jsonFilename {
-    set result [catch {json_run < $jsonFilename} jsonOutput opts]
-    if $result==0  {
-        pass "Parser accepted file: $jsonFilename"
-    } else {
-        fail "Parser shall accept file: $jsonFilename"
-        note "$opts $jsonOutput"
-    }
-}
+json_must_reject_file /dev/null
+json_must_accept_file testsuite/json.test/test1.json
 
-proc must_reject_file jsonFilename {
-    set result [catch {json_run < $jsonFilename} jsonOutput]
-    if $result==1 {
-        pass "Parser rejected file: $jsonFilename"
-    } else {
-        pass "Parser shall reject file: $jsonFilename"
-        note "$jsonOutput"
-    }
-}
-
-proc must_accept jsonInput {
-    set result [catch {json_run << $jsonInput} jsonOutput]
-    if $result==0 {
-        pass "Parser accepted: >>>$jsonInput<<<"
-    } else {
-        fail "Parser shall accept: >>>$jsonInput<<<"
-        note "$jsonOutput"
-    }
-}
-
-proc must_reject jsonInput {
-    set result [catch {json_run << $jsonInput} jsonOutput]
-    if $result==1 {
-        pass "Parser rejected: >>>$jsonInput<<<"
-    } else {
-        fail "Parser shall reject: >>>$jsonInput<<<"
-        note "$jsonOutput"
-    }
-}
-
-must_reject_file /dev/null
-must_accept_file testsuite/json.test/test1.json
-
-must_reject {}
-must_reject " \n\r\t "
-must_reject "\" \n\r\t \""
-must_accept {{"key": "value", "stuff": ["this", "and", "that"]}}
-must_accept {{"Shiba Inu": "柴犬"}}
-must_accept {["\u003a", "\u00a3", "\u2207"]}
-must_accept null
-must_accept false
-must_accept true
-must_accept 123
-must_accept 123.456
-must_accept 123.456E7
-must_accept 123.456E+7
-must_accept 123.456E-7
-must_accept {""}
-must_accept {"Fnord!"}
-must_accept {[]}
-must_accept "{}"
-must_accept {[null, false, true, 123, "Fnord!", {}, []]}
-must_accept {{"object": [null, false, true, 123, "Fnord!", {}, []]}}
-must_reject +123
-must_reject 123.
-must_reject "\"\u0000\""
-must_reject "\"\u0001\""
-must_reject "\"\u0002\""
-must_reject "\"\u0003\""
-must_reject "\"\u0004\""
-must_reject "\"\u0005\""
-must_reject "\"\u0006\""
-must_reject "\"\u0007\""
-must_reject "\"\u0008\""
-must_reject "\"\u0009\""
-must_reject "\"\u000A\""
-must_reject "\"\u000B\""
-must_reject "\"\u000C\""
-must_reject "\"\u000D\""
-must_reject "\"\u000E\""
-must_reject "\"\u000F\""
-must_reject "\"\u0010\""
-must_reject "\"\u0011\""
-must_reject "\"\u0012\""
-must_reject "\"\u0013\""
-must_reject "\"\u0014\""
-must_reject "\"\u0015\""
-must_reject "\"\u0016\""
-must_reject "\"\u0017\""
-must_reject "\"\u0018\""
-must_reject "\"\u0019\""
-must_reject "\"\u001A\""
-must_reject "\"\u001B\""
-must_reject "\"\u001C\""
-must_reject "\"\u001D\""
-must_reject "\"\u001E\""
-must_reject "\"\u001F\""
-must_reject "\"\u0022\""
-must_reject "\"\u005C\""
-must_reject "]"
-must_reject "}"
-must_reject "\["
-must_reject "\{"
-must_reject "\"\\\""
-must_reject {""123}
+json_must_reject {}
+json_must_reject " \n\r\t "
+json_must_reject "\" \n\r\t \""
+json_must_accept {{"key": "value", "stuff": ["this", "and", "that"]}}
+json_must_accept {{"Shiba Inu": "柴犬"}}
+json_must_accept {["\u003a", "\u00a3", "\u2207"]}
+json_must_accept null
+json_must_accept false
+json_must_accept true
+json_must_accept 123
+json_must_accept 123.456
+json_must_accept 123.456E7
+json_must_accept 123.456E+7
+json_must_accept 123.456E-7
+json_must_accept {""}
+json_must_accept {"Fnord!"}
+json_must_accept {[]}
+json_must_accept "{}"
+json_must_accept {[null, false, true, 123, "Fnord!", {}, []]}
+json_must_accept {{"object": [null, false, true, 123, "Fnord!", {}, []]}}
+json_must_reject +123
+json_must_reject 123.
+json_must_reject "\"\u0000\""
+json_must_reject "\"\u0001\""
+json_must_reject "\"\u0002\""
+json_must_reject "\"\u0003\""
+json_must_reject "\"\u0004\""
+json_must_reject "\"\u0005\""
+json_must_reject "\"\u0006\""
+json_must_reject "\"\u0007\""
+json_must_reject "\"\u0008\""
+json_must_reject "\"\u0009\""
+json_must_reject "\"\u000A\""
+json_must_reject "\"\u000B\""
+json_must_reject "\"\u000C\""
+json_must_reject "\"\u000D\""
+json_must_reject "\"\u000E\""
+json_must_reject "\"\u000F\""
+json_must_reject "\"\u0010\""
+json_must_reject "\"\u0011\""
+json_must_reject "\"\u0012\""
+json_must_reject "\"\u0013\""
+json_must_reject "\"\u0014\""
+json_must_reject "\"\u0015\""
+json_must_reject "\"\u0016\""
+json_must_reject "\"\u0017\""
+json_must_reject "\"\u0018\""
+json_must_reject "\"\u0019\""
+json_must_reject "\"\u001A\""
+json_must_reject "\"\u001B\""
+json_must_reject "\"\u001C\""
+json_must_reject "\"\u001D\""
+json_must_reject "\"\u001E\""
+json_must_reject "\"\u001F\""
+json_must_reject "\"\u0022\""
+json_must_reject "\"\u005C\""
+json_must_reject "]"
+json_must_reject "}"
+json_must_reject "\["
+json_must_reject "\{"
+json_must_reject "\"\\\""
+json_must_reject {""123}
