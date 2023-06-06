@@ -1,5 +1,5 @@
 set JSON json
-set TOOL_EXECUTABLE $objdir/json
+set TOOL_EXECUTABLE $objdir/src/json
 
 proc json_run args {
     global TOOL_EXECUTABLE
