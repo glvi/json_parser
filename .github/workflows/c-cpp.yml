@@ -10,20 +10,21 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    
     steps:
     - uses: actions/checkout@v3
     - name: Initialize GNU build system
       run: autoreconf -i -s
+      working-directory: bison/final
     - name: Create build configuration
       run: ../configure
-      working-directory: ./build
+      working-directory: bison/final/build
     - name: Build
       run: make
-      working-directory: ./build
+      working-directory: bison/final/build
     - name: Tests
       run: make check
-      working-directory: ./build
+      working-directory: bison/final/build
 
 #    - name: make distcheck
 #      run: make distcheck
