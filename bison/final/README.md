@@ -7,10 +7,10 @@ I wanted to show-case how to write a parser using GNU bison.
 And writing a JSON parser seemed like a good idea at the time.
 
 **References**:
+- GNU Bison, <https://www.gnu.org/software/bison/>.
 - Bray, T., Ed., "The JavaScript Object Notation (JSON) Data Interchange Format", STD 90, RFC 8259, DOI 10.17487/RFC8259, December 2017, <https://www.rfc-editor.org/info/rfc8259>.
 - Ecma International, "The JSON Data Interchange Format", Standard ECMA-404, <http://www.ecma-international.org/publications/standards/Ecma-404.htm>.
-
-See also: https://json.org/.
+- See also: https://json.org/.
 
 # Dependencies
 
@@ -54,19 +54,37 @@ The glue is in `json.cc/.hh`.
 
 The executable is `json`.
 
-The project is built using `Makefile`.
+The project is built using GNU Autotools.
 
 # Building
 
+To set up the build system
 ```ShellSession
-$ gmake
+$ export YACC=/usr/local/opt/bison/bin/bison # uses GNU Bison parser generator from Homebrew installation
+$ export CXX=/usr/local/opt/gcc/bin/g++-13   # uses GNU C++ compiler from Homebrew installation
+$ autoreconf -i
+$ mkdir -p build
+$ cd build
+$ ../configure
+```
+
+To build
+```ShellSession
+$ gmake -j
+```
+
+To test
+```ShellSession
+$ gmake check
 ```
 
 # Usage
 
-The parser reads from standard input.
+The parser reads data from the standard input.
 
-Messages are written to standard error.
+If the parser accepts the input as JSON, it presents what it has understood to the standard output.
+
+Errors, warnings, and other messages are reported to standard error.
 
 ```ShellSession
 $ ./json < FILE
