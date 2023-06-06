@@ -4,6 +4,7 @@
 %{
   #include "json_parser.hh"
   #include <sstream>
+  #include <cstdint>
   auto make_STRING(std::string&&) -> yy::parser::symbol_type;
   auto illegal_character(char const *, int) -> yy::parser::syntax_error;
   auto make_NUMBER(char const *, int) -> yy::parser::symbol_type;
