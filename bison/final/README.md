@@ -58,23 +58,29 @@ The project is built using GNU Autotools.
 
 # Building
 
-To set up the build system
+To initialize the build system
 ```ShellSession
-$ export YACC=/usr/local/opt/bison/bin/bison # uses GNU Bison parser generator from Homebrew installation
-$ export CXX=/usr/local/opt/gcc/bin/g++-13   # uses GNU C++ compiler from Homebrew installation
-$ autoreconf -i
+$ autoreconf -i -s
+```
+
+To create the build configuration
+```ShellSession
 $ mkdir -p build
 $ cd build
+$ export YACC=/usr/local/opt/bison/bin/bison # use GNU Bison parser generator from Homebrew installation
+$ export CXX=/usr/local/opt/gcc/bin/g++-13   # use GNU C++ compiler from Homebrew installation
 $ ../configure
 ```
 
 To build
 ```ShellSession
+$ cd build
 $ gmake -j
 ```
 
 To test
 ```ShellSession
+$ cd build
 $ gmake check
 ```
 
