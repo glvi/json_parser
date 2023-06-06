@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-23.04
+    runs-on: [linux, g++-13]
     
     steps:
     - uses: actions/checkout@v3
