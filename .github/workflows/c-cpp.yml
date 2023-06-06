@@ -17,7 +17,7 @@ jobs:
       run: autoreconf -i -s
       working-directory: bison/final
     - name: Create build configuration
-      run: ../configure YACC=bison
+      run: ../configure YACC=bison CXX=g++-13
       working-directory: bison/final/build
     - name: Build
       run: make
