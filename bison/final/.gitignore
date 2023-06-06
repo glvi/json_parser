@@ -1,0 +1,10 @@
+autom4te.cache/
+build/
+*.in
+aclocal.m4
+compile
+depcomp
+install-sh
+missing
+configure
+ylwrap
