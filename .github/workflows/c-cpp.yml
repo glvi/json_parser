@@ -7,11 +7,14 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  bison-final:
 
-    runs-on: [self-hosted]
+    runs-on: ubuntu-latest
     
     steps:
+    - uses: aminya/setup-cpp@v0.28.0
+      with:
+        gcc: 13
     - uses: actions/checkout@v3
     - name: Initialize GNU build system
       run: autoreconf -i -s
