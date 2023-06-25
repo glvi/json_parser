@@ -25,6 +25,8 @@ json_must_accept {[null, false, true, 123, "Fnord!", {}, []]}
 json_must_accept {{"object": [null, false, true, 123, "Fnord!", {}, []]}}
 json_must_reject +123
 json_must_reject 123.
+json_must_reject +0
+json_must_reject -0
 json_must_reject "\"\u0000\""
 json_must_reject "\"\u0001\""
 json_must_reject "\"\u0002\""
