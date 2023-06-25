@@ -1,4 +1,5 @@
 /* -*- mode: antlr; coding: utf-8; indent-tabs-mode: nil; -*- */
+/* JSON grammar in ANTLR form */
 
 grammar json;
 
@@ -22,9 +23,9 @@ string: '"' characters '"' ;
 
 characters: | Character characters ;
 
-Character: ~[\u0000-\u001f\u0022\u005c] ;
+Character: ~[\u0000-\u001f\u0022\u005c] | '\\' Escape;
 
-escape: '"' | '\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | ('u' Hex Hex Hex Hex) ;
+Escape: '"' | '\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | ('u' Hex Hex Hex Hex) ;
 
 Hex: Digit | [a-f] | [A-F] ;
 
