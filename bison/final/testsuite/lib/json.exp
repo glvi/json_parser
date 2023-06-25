@@ -38,7 +38,7 @@ proc json_must_reject_file jsonFilename {
 
 
 
-proc json_check_accept {result jsonInput jsonOutpu} {
+proc json_check_accept {result jsonInput jsonOutput} {
     if $result==0 {
         pass "Parser accepted: >>>$jsonInput<<<"
     } else {
@@ -47,7 +47,7 @@ proc json_check_accept {result jsonInput jsonOutpu} {
     }
 }
 
-proc json_check_reject {result jsonInput jsonOutpu} {
+proc json_check_reject {result jsonInput jsonOutput} {
     if $result==1 {
         pass "Parser rejected: >>>$jsonInput<<<"
     } else {
