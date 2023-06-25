@@ -12,17 +12,19 @@
   auto guard_CTRL(char) -> void;
 %}
 
-onenine    [1-9]
-digit      [0-9]
-natural    {digit}|{onenine}{digit}*
-integer    -?{natural}
-fraction   \.{natural}
-exponent   [Ee][+-]?{natural}
-number     {integer}{fraction}?{exponent}?
+onenine      [1-9]
+digit        [0-9]
+positive     {onenine}{digit}*
+negative     -{positive}
+nonnegative  0|{positive}
+integer      {nonnegative}|{negative}
+fraction     \.{nonnegative}
+exponent     [Ee][+-]?{nonnegative}
+number       {integer}{fraction}?{exponent}?
 
-unicode    \\u[0-9A-Fa-f]{4}
+unicode      \\u[0-9A-Fa-f]{4}
 
-ws         [ \n\r\t]+
+ws           [ \n\r\t]+
 
 %x STRING
 
