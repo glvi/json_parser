@@ -21,6 +21,10 @@ Then I wanted to compare this to writing a parser using [ANTLR](https://www.antl
 - Ecma International, "The JSON Data Interchange Format", Standard ECMA-404, <http://www.ecma-international.org/publications/standards/Ecma-404.htm>.
 - See also: https://json.org/.
 
+**On Compilers**:
+
+- Stanford's course in the practical and theoretical aspects of compiler construction (CS143 Compilers) web page: <https://web.stanford.edu/class/archive/cs/cs143/cs143.1128/>.
+
 # Structure
 
 Directories `bison` and `antlr` hold the distinct experiments on how to write a JSON parser using either parser generator.
