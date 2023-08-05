@@ -65,11 +65,11 @@
 %token <JSONString>  STRING "string"
 
 %nterm <JSONArray>   array
-%nterm <JSONArray>   values;
-%nterm <JSONObject>  mappings
+%nterm <JSONArray>   values
+%nterm <JSONObject>  member
 %nterm <JSONObject>  object
 %nterm <JSONValue>   simple
-%nterm <JSONValue>   value;
+%nterm <JSONValue>   value
 
 %start start;
 
@@ -94,8 +94,8 @@ simple:
 ;
 
 object:
-  "{" "}"          { $$ = JSONObject {}; }
-| "{" mappings "}" { $$ = $2; }
+  "{" "}"        { $$ = JSONObject {}; }
+| "{" member "}" { $$ = $2; }
 ;
 
 array:
@@ -103,9 +103,9 @@ array:
 | "[" values "]" { $$ = $2; }
 ;
 
-mappings:
-  "string" ":" value              { $$ = JSONObject {$1, $3};}
-| mappings "," "string" ":" value { $$ = JSONObject {$1, $3, $5}; }
+member:
+  "string" ":" value            { $$ = JSONObject {$1, $3};}
+| member "," "string" ":" value { $$ = JSONObject {$1, $3, $5}; }
 ;
 
 values:
