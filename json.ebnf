@@ -1,0 +1,55 @@
+/* -*- mode: text; coding: utf-8; indent-tabs-mode: nil; -*- */
+/* JSON grammer in extended Backus-Naur form */
+
+json        = element;
+
+value       = object
+            | array
+            | string
+            | number
+            | 't', 'r', 'u', 'e'
+            | 'f', 'a', 'l', 's', 'e'
+            | 'n', 'u', 'l ', 'l'
+            ;
+
+object      = '{', {ws}, '}' | '{', member, {',', member}, '}';
+
+member      = {ws}, string, {ws}, ':', element;
+
+array       = '[', {ws}, ']' |'[', element, {',', element}, ']';
+
+element     = {ws}, value, {ws};
+
+string      = '"', {character}, '"';
+
+character   = -(ctrl_char|quote_char|escape_char) ;
+
+ctrl_char   = ? Any Unicode codepoint u. U+0000 <= u <= U+001F ? ;
+
+quote_char  = '"';
+
+escape_char = '\';
+
+escape      = '"' | '\\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | 'u', 4 * hex;
+
+hex         = digit | 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f';
+
+number      = integer, [fraction], [exponent];
+
+integer     = digit | onenine, {digit} | '-', digit | '-', onenine, {digit};
+
+digit       = '0' | onenine;
+
+onenine     = '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+
+fraction    = '.', digit, {digit};
+
+exponent    = ('E'|'e'), [sign], digit, {digit};
+
+sign        = '+' | '-';
+
+ws          = ? unicode codepoint u+0009 ?
+            | ? unicode codepoint u+000a ?
+            | ? unicode codepoint u+000d ?
+            | ? unicode codepoint u+0020 ?
+            ;

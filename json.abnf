@@ -1,0 +1,72 @@
+;; -*- mode: text; coding: utf-8; indent-tabs-mode: nil; -*-
+;; JSON grammar in augmented Backus-Naur form
+
+json                   = element
+
+value                  = object / array / string / number / "true" / "false" / "null"
+
+object                 = "{" *WS "}" / "{" 1*member "}"
+
+member                 = *WS string *WS ":" element
+
+array                  = "[" *WS "]" / "[" 1*element "]"
+
+element                = *WS value *WS
+
+string                 = DQUOTE *CHARACTER DQUOTE
+
+CHARACTER              = %x20 / %x21 / %x23-5b / % x5d-ff
+
+escape                 = DQUOTE                     ; "
+escape                 =/ REVERSE_SOLIDUS           ; \
+escape                 =/ SOLIDUS                   ; /
+escape                 =/ LATIN_SMALL_LETTER_B      ; b
+escape                 =/ LATIN_SMALL_LETTER_F      ; f
+escape                 =/ LATIN_SMALL_LETTER_N      ; n
+escape                 =/ LATIN_SMALL_LETTER_R      ; r
+escape                 =/ LATIN_SMALL_LETTER_T      ; t
+escape                 =/ LATIN_SMALL_LETTER_U 4HEX ; uABCD
+
+HEX                    = DIGIT / %x41-46 / %x61-66
+
+number                 = integer [fraction] [exponent]
+
+integer                = DIGIT
+integer                =/ ONENINE *DIGIT
+integer                =/ HYPHEN_MINUS DIGIT
+integer                =/ HYPHEN_MINUS ONENINE *DIGIT
+
+fraction               = FULL_STOP 1*DIGIT
+
+exponent               = EXP [SGN] 1*DIGIT
+
+ONENINE                = %x31-39
+
+EXP                    = LATIN_CAPITAL_LETTER_E / LATIN_SMALL_LETTER_E
+
+SGN                    = PLUS_SIGN / HYPHEN_MINUS
+
+WS                     = HTAB / LF / CR / SP
+
+; Aux. def. for readability
+PLUS_SIGN              = %x2B     ; +
+HYPHEN_MINUS           = %x2D     ; -
+FULL_STOP              = %x2E     ; .
+SOLIDUS                = %x2F     ; /
+LATIN_CAPITAL_LETTER_E = %x45     ; E
+LATIN_SMALL_LETTER_B   = %x62     ; b
+LATIN_SMALL_LETTER_E   = %x65     ; e
+LATIN_SMALL_LETTER_F   = %x66     ; f
+LATIN_SMALL_LETTER_N   = %x6E     ; n
+LATIN_SMALL_LETTER_R   = %x72     ; r
+LATIN_SMALL_LETTER_T   = %x74     ; t
+LATIN_SMALL_LETTER_U   = %x75     ; u
+REVERSE_SOLIDUS        = %x5C     ; \
+
+; Core rules from ABNF
+HTAB                   = %x09                   ; horizontal tabulation
+LF                     = %x0a                   ; line feed
+CR                     = %x0d                   ; carriage return
+SP                     = %x20                   ; space
+DQUOTE                 = %x22                   ; quotation mark
+DIGIT                  = %x30-39                ; 0, ..., 9
