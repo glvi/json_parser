@@ -5,11 +5,11 @@
   #include "json_parser.hh"
   #include <sstream>
   #include <cstdint>
-  auto make_STRING(std::string&&) -> yy::parser::symbol_type;
-  auto illegal_character(char const *, int) -> yy::parser::syntax_error;
-  auto make_NUMBER(char const *, int) -> yy::parser::symbol_type;
-  auto make_UTF8(char const *, int) -> std::string;
-  auto guard_CTRL(char) -> void;
+  auto make_STRING       (std::string&&)     -> yy::parser::symbol_type;
+  auto illegal_character (char const *, int) -> yy::parser::syntax_error;
+  auto make_NUMBER       (char const *, int) -> yy::parser::symbol_type;
+  auto make_UTF8         (char const *, int) -> std::string;
+  auto guard_CTRL        (char)              -> void;
 %}
 
 onenine      [1-9]
@@ -34,8 +34,8 @@ ws           [ \n\r\t]+
 \x22                BEGIN(STRING); builder = "";
 <STRING>\x22{2,}    throw yy::parser::syntax_error {"Too many \""};
 <STRING>\x22        BEGIN(INITIAL); return make_STRING(std::move(builder));
-<STRING>\\\"        builder += '\"';
-<STRING>\\\\        builder += '\\';
+<STRING>\x5c\x22    builder += '\"';
+<STRING>\x5c\x5c    builder += '\\';
 <STRING>\\b         builder += '\b';
 <STRING>\\f         builder += '\f';
 <STRING>\\n         builder += '\n';
