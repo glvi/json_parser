@@ -13,6 +13,9 @@ And writing a JSON parser seemed like a good idea at the time.
 - Ecma International, "The JSON Data Interchange Format", Standard ECMA-404, <http://www.ecma-international.org/publications/standards/Ecma-404.htm>.
 - See also: https://json.org/.
 
+**On Compilers**:
+- Stanford's course in the practical and theoretical aspects of compiler construction (CS143 Compilers) web page: <https://web.stanford.edu/class/archive/cs/cs143/cs143.1128/>.
+
 # Dependencies
 
 ## Operating system(s)
