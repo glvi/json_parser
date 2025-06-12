@@ -1,3 +1,5 @@
+[![C/C++ CI](https://github.com/glvi/json_parser/actions/workflows/c-cpp.yml/badge.svg)](https://github.com/glvi/json_parser/actions/workflows/c-cpp.yml)
+
 # json_parser
 
 Parser for JSON
